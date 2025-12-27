@@ -1,0 +1,167 @@
+<div class="homepage">
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Transform Your Career with 
+        <span class="highlight"></span>Saraswati Tally Academy
+      </h1>
+      <p class="hero-subtitle">
+        Learn industry-relevant computer courses from expert instructors at prices that won't break the bank
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" (click)="navigate()">Explore Courses</button>
+        <button class="btn-secondary" (click)="navigateEnquiry()">Get Free Counseling</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-number">5000+</span>
+          <span class="stat-label">Students Trained</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95%</span>
+          <span class="stat-label">Placement Success</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">11+</span>
+          <span class="stat-label">Courses Offered</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-section">
+    <h2 class="section-title">Why Choose Us?</h2>
+    <p class="section-subtitle">Your success is our mission - quality education at unbeatable prices</p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon-box">💰</div>
+        <h3>Affordable Fees</h3>
+        <p>Quality education starting from just ₹4,999. We believe education should be accessible to everyone.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon-box">👨‍🏫</div>
+        <h3>Expert Trainers</h3>
+        <p>Learn from industry professionals with 10+ years of experience in their respective fields.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon-box">💼</div>
+        <h3>100% Job Support</h3>
+        <p>Resume building, interview preparation, and placement assistance to kickstart your career.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon-box">🕒</div>
+        <h3>Flexible Timings</h3>
+        <p>Weekend and evening batches available to accommodate working professionals and students.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon-box">🎓</div>
+        <h3>Certified Courses</h3>
+        <p>Industry-recognized certifications that add value to your resume and career growth.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="icon-box">🖥️</div>
+        <h3>Modern Lab Facilities</h3>
+        <p>Hands-on practice with latest software and hardware in our state-of-the-art computer labs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carousel Section -->
+  <section class="carousel-section">
+    <h2 class="section-title">Featured Courses</h2>
+    <p class="section-subtitle">Popular courses our students are enrolling in</p>
+    
+    <div class="carousel-container" 
+         (mouseenter)="stopAutoScroll()" 
+         (mouseleave)="startAutoScroll()">
+      
+      <div class="carousel-track-wrapper">
+        <div class="carousel-track" 
+             [style.transform]="'translateX(-' + (currentSlide * (100 / slidesPerView)) + '%)'">
+          
+          <div class="carousel-slide" *ngFor="let slide of slides" (click)="navigate()">
+            <div class="card">
+              <img [src]="slide.image" [alt]="slide.title">
+              <div class="slide-info">
+                <h3>{{ slide.title }}</h3>
+                <p>{{ slide.info }}</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="indicators">
+        <span
+          *ngFor="let i of [].constructor(maxSlideIndex + 1); let idx = index"
+          [class.active]="idx === currentSlide"
+          (click)="goToSlide(idx)">
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <h2 class="section-title">What Our Students Say</h2>
+    <p class="section-subtitle">Real success stories from our alumni</p>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="quote-icon">"</div>
+        <p class="testimonial-text">
+          The Web Development course was excellent and very affordable. The instructors were patient and explained everything clearly. Got placed within 2 months!
+        </p>
+        <div class="student-info">
+          <strong>Rahul Sharma</strong>
+          <span>Web Developer at TCS</span>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="quote-icon">"</div>
+        <p class="testimonial-text">
+          Best investment I made for my career. The Tally course helped me get a job in accounting. Very professional teaching and practical training.
+        </p>
+        <div class="student-info">
+          <strong>Priya Verma</strong>
+          <span>Accountant at Reliance</span>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="quote-icon">"</div>
+        <p class="testimonial-text">
+          Completed my ADCA diploma here. The course content was up-to-date and the fees were very reasonable compared to other institutes.
+        </p>
+        <div class="student-info">
+          <strong>Amit Kumar</strong>
+          <span>Software Trainee at Wipro</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Start Your Journey?</h2>
+      <p>Join thousands of successful students who transformed their careers with us</p>
+      <div class="cta-buttons">
+        <button class="btn-primary-large" (click)="navigateEnquiry()">Enroll Now</button>
+        <button class="btn-outline-large" (click)="navigate()">View All Courses</button>
+      </div>
+    </div>
+  </section>
+
+</div>

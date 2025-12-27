@@ -1,0 +1,225 @@
+/* Root Variables */
+:root {
+  --primary-red: #ff4b33;
+  --primary-orange: #ff6b35;
+  --primary-yellow: #ffc107;
+  --light-yellow: #fff8e1;
+  --white: #ffffff;
+  --text-dark: #2c3e50;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header Styling */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--primary-red), var(--primary-orange), var(--primary-yellow)) 1;
+}
+
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background-blend-mode:color-burn;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.nav-menu a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Underline Animation */
+.nav-menu a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-orange), var(--primary-yellow));
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-menu a:hover {
+  color: var(--primary-orange);
+}
+
+.nav-menu a:hover::before {
+  width: 80%;
+}
+
+/* Active Link Styling */
+.nav-menu a.active {
+  background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.nav-menu a.active::before {
+  display: none;
+}
+
+.nav-menu a.active:hover {
+  background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+/* Mobile Menu Toggle (Hidden by default) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.menu-toggle span {
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-red), var(--primary-orange));
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .header {
+    padding: 12px 30px;
+  }
+
+  .nav-menu {
+    gap: 25px;
+  }
+
+  .nav-menu a {
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+
+  .logo img {
+    height: 45px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 280px;
+    height: calc(100vh - 70px);
+    background: var(--white);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 20px;
+    gap: 0;
+    box-shadow: -4px 0 20px var(--shadow);
+    transition: right 0.4s ease;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-menu a {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid transparent;
+  }
+
+  .nav-menu a:hover {
+    background: var(--light-yellow);
+    border-left-color: var(--primary-orange);
+  }
+
+  .nav-menu a.active {
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+    border-left-color: var(--primary-red);
+  }
+
+  .logo img {
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 15px;
+  }
+
+  .logo img {
+    height: 35px;
+  }
+
+  .nav-menu {
+    width: 100%;
+    right: -100%;
+    top: 65px;
+  }
+
+  .nav-menu a {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-padding-top: 80px;
+}

@@ -1,0 +1,48 @@
+<div class="courses-container">
+  <div class="courses-header">
+    <h1>Our Courses</h1>
+    <p>Explore our comprehensive range of technology courses</p>
+  </div>
+
+  <div class="courses-grid">
+    <div class="course-card" *ngFor="let course of courses">
+      
+      <!-- Card Header -->
+      <div class="card-header">
+        <h2>{{ course.title }}</h2>
+        <span class="level-badge" [class]="course.level.toLowerCase()">
+          {{ course.level }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="course-description">{{ course.description }}</p>
+
+      <!-- Syllabus -->
+      <div class="syllabus">
+        <h3>Course Syllabus</h3>
+        <ul>
+          <li *ngFor="let topic of course.syllabus">
+            <span class="check-icon">✓</span>
+            {{ topic }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Price and Duration Box -->
+      <div class="price-duration-container">
+        <div class="price-box">
+          <span class="label">Price</span>
+          <span class="value">₹{{ course.price | number }}</span>
+        </div>
+        <div class="duration-box">
+          <span class="label">Duration</span>
+          <span class="value">{{ course.duration }}</span>
+        </div>
+      </div>
+
+      <!-- Enroll Button -->
+      <button class="enroll-btn" routerLink="/enquiry">Enroll Now</button>
+    </div>
+  </div>
+</div>
