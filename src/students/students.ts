@@ -349,6 +349,9 @@ trackByRegNum(index: number, student: studentModel): string {
 resetForm() {
   this.addStudentModel.reset();
 }
+dummyfn(){
+  
+}
 setFilter(filter: string): void {
     if (filter === 'deleted') {
       // Load deleted students from API if needed
