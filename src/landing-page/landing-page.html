@@ -1,0 +1,41 @@
+<!-- left pane -->
+<div class="superContainer">
+
+
+<div class="container">
+    <div class="subcontainer">
+        <div class="top">
+            <div class="logo">
+           . <a routerLink="/admin"></a><img src="logoOrg.jpeg" alt="logo">
+        </div>
+        <div class="Name">
+            <h2>STA Admin Panel</h2>
+        </div>
+        </div>
+        
+        <div class="navigation">
+            <div class="navCol">
+                <nav class="navItems">
+                    <a routerLink="/admin">Dashboard</a>
+                    <a routerLink="students">All Students</a>
+                    <!-- <a routerLink="completedStudents">Completed Students</a>
+                    <a routerLink="certifiedStudents">Certified Students</a> -->
+                    <a routerLink="attendance"> Attendance </a>
+                    <a routerLink="fees">Fees Collection</a>
+                    
+                </nav>
+                <button class="logoutbtn" (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Center Content Space -->
+
+<div class="centerContainer">
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+</div>

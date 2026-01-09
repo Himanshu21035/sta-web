@@ -1,0 +1,270 @@
+<!-- dashboard.component.html -->
+<div class="dashboardContainer">
+  <!-- Header -->
+  <div class="dashboardHeader">
+    <div class="headerContent">
+      <h1>Student Management Dashboard</h1>
+      <!-- <p class="subtitle">Real-time overview of your institution</p> -->
+    </div>
+    <button class="refreshBtn" (click)="refresh()" [disabled]="isLoading()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+      </svg>
+      Refresh
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="loadingState">
+    <div class="spinner"></div>
+    <p>Loading dashboard data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error()" class="errorState">
+    <div class="errorIcon">⚠️</div>
+    <h3>{{ error() }}</h3>
+    <button class="retryBtn" (click)="refresh()">Try Again</button>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading() && !error() && stats()" class="dashboardContent">
+    
+    <!-- Primary Stats Cards -->
+    <div class="statsGrid">
+      <!-- Total Students -->
+      <div class="statCard primary">
+        <div class="statIcon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="statContent">
+          <h3>Total Students</h3>
+          <p class="statNumber">{{ stats()!.total }}</p>
+          <span class="statLabel">Registered</span>
+        </div>
+      </div>
+
+      <!-- Active Students -->
+      <div class="statCard success">
+        <div class="statIcon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="statContent">
+          <h3>Active Students</h3>
+          <p class="statNumber">{{ stats()!.active }}</p>
+          <div class="progressBar">
+            <div class="progressFill" [style.width.%]="activeRate"></div>
+          </div>
+          <span class="statLabel">{{ activeRate }}% Active</span>
+        </div>
+      </div>
+
+      <!-- Certified Students -->
+      <div class="statCard warning">
+        <div class="statIcon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div class="statContent">
+          <h3>Certified</h3>
+          <p class="statNumber">{{ stats()!.certified }}</p>
+          <div class="progressBar">
+            <div class="progressFill" [style.width.%]="certificationRate"></div>
+          </div>
+          <span class="statLabel">{{ certificationRate }}% Certified</span>
+        </div>
+      </div>
+
+      <!-- Completed Students -->
+      <div class="statCard info">
+        <div class="statIcon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="statContent">
+          <h3>Completed</h3>
+          <p class="statNumber">{{ stats()!.completed }}</p>
+          <div class="progressBar">
+            <div class="progressFill" [style.width.%]="completionRate"></div>
+          </div>
+          <span class="statLabel">{{ completionRate }}% Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Overview -->
+    <div class="financialSection">
+      <div class="sectionHeader">
+        <h2>Financial Overview</h2>
+        <span class="badge">Live Data</span>
+      </div>
+
+      <div class="financialGrid">
+        <!-- Total Revenue -->
+        <div class="financialCard totalRevenue">
+          <div class="cardHeader">
+            <h3>Total Revenue</h3>
+            <div class="icon">💰</div>
+          </div>
+          <p class="amount">{{ formatCurrency(stats()!.totalRevenue) }}</p>
+          <span class="description">Expected total revenue</span>
+        </div>
+
+        <!-- Fees Collected -->
+        <div class="financialCard collected">
+          <div class="cardHeader">
+            <h3>Fees Collected</h3>
+            <div class="icon">✅</div>
+          </div>
+          <p class="amount">{{ formatCurrency(stats()!.feesCollected) }}</p>
+          <div class="progressBar large">
+            <div class="progressFill success" [style.width.%]="feesCollectionRate"></div>
+          </div>
+          <span class="description">
+            {{ stats()!.studentsWithFeesSubmitted }} students • {{ feesCollectionRate }}% collected
+          </span>
+        </div>
+
+        <!-- Fees Pending -->
+        <div class="financialCard pending">
+          <div class="cardHeader">
+            <h3>Fees Pending</h3>
+            <div class="icon">⏳</div>
+          </div>
+          <p class="amount">{{ formatCurrency(stats()!.feesPending) }}</p>
+          <div class="progressBar large">
+            <div class="progressFill warning" [style.width.%]="100 - feesCollectionRate"></div>
+          </div>
+          <span class="description">
+            {{ stats()!.studentsWithFeesPending }} students pending payment
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quickStatsSection">
+      <h2>Quick Statistics</h2>
+      <div class="quickStatsGrid">
+        <div class="quickStat">
+          <div class="quickStatIcon certified">🎓</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.certified }}</h4>
+            <p>Certified Students</p>
+          </div>
+        </div>
+
+        <div class="quickStat">
+          <div class="quickStatIcon completed">✔️</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.completed }}</h4>
+            <p>Completed Courses</p>
+          </div>
+        </div>
+
+        <div class="quickStat">
+          <div class="quickStatIcon active">🟢</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.active }}</h4>
+            <p>Active Enrollments</p>
+          </div>
+        </div>
+
+        <div class="quickStat">
+          <div class="quickStatIcon inactive">⚪</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.total - stats()!.active }}</h4>
+            <p>Inactive Students</p>
+          </div>
+        </div>
+
+        <div class="quickStat">
+          <div class="quickStatIcon feesSubmitted">💵</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.studentsWithFeesSubmitted }}</h4>
+            <p>Fees Submitted</p>
+          </div>
+        </div>
+
+        <div class="quickStat">
+          <div class="quickStatIcon feesPending">⏰</div>
+          <div class="quickStatInfo">
+            <h4>{{ stats()!.studentsWithFeesPending }}</h4>
+            <p>Fees Pending</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summarySection">
+      <div class="summaryCard">
+        <h3>Certification Progress</h3>
+        <div class="circularProgress">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="progressTrack"/>
+            <circle 
+              cx="50" 
+              cy="50" 
+              r="45" 
+              class="progressCircle"
+              [style.stroke-dashoffset]="283 - (283 * certificationRate / 100)"/>
+          </svg>
+          <div class="progressText">
+            <span class="percentage">{{ certificationRate }}%</span>
+            <span class="label">Certified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="summaryCard">
+        <h3>Course Completion</h3>
+        <div class="circularProgress">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="progressTrack"/>
+            <circle 
+              cx="50" 
+              cy="50" 
+              r="45" 
+              class="progressCircle completion"
+              [style.stroke-dashoffset]="283 - (283 * completionRate / 100)"/>
+          </svg>
+          <div class="progressText">
+            <span class="percentage">{{ completionRate }}%</span>
+            <span class="label">Completed</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="summaryCard">
+        <h3>Fee Collection</h3>
+        <div class="circularProgress">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="progressTrack"/>
+            <circle 
+              cx="50" 
+              cy="50" 
+              r="45" 
+              class="progressCircle fees"
+              [style.stroke-dashoffset]="283 - (283 * feesCollectionRate / 100)"/>
+          </svg>
+          <div class="progressText">
+            <span class="percentage">{{ feesCollectionRate }}%</span>
+            <span class="label">Collected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

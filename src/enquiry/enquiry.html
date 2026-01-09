@@ -60,7 +60,8 @@
                 <span [ngClass]="{error: enquiryForm.controls['joiningDate'].errors?.['required'] && enquiryForm.controls['joiningDate'].touched}">Select joining date</span>
 
             </div>
-            <button type="submit" [disabled]="enquiryForm.invalid">Submit</button>
+            <button type="submit" id="submitbtn" [disabled]="enquiryForm.invalid || isSubmitting">
+  {{ isSubmitting ? 'Submitting...' : 'Submit' }}</button>
 
         </form>
 

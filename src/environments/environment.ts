@@ -1,3 +1,4 @@
 export const environment={
-    apiURL:"https://script.google.com/macros/s/AKfycbxXFdW_LFf1Qd4hKiUFMVWJxJfLIciwr6eqevKowkqKT4_ha3ivApa84ebJPndWGbyEwA/exec"
+    apiURL:"https://script.google.com/macros/s/AKfycbxXFdW_LFf1Qd4hKiUFMVWJxJfLIciwr6eqevKowkqKT4_ha3ivApa84ebJPndWGbyEwA/exec",
+    studentApiURL:"http://localhost:3000/api"
 }

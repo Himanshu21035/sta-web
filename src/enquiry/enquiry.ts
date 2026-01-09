@@ -31,16 +31,18 @@ export class Enquiry {
   }
   submitEnquiry(){
     if(this.enquiryForm.valid&&(new Date(this.enquiryForm.value.joiningDate) > new Date())){
-      console.log(this.enquiryForm.value);
+      // console.log(this.enquiryForm.value);
+      const submitbtn=document.getElementById('submitbtn');
       this.isSubmitting = true;
       this.submitSuccess = false;
       this.submitError = false;
       this.enquiryService.submitEnquiry(this.enquiryForm.value).subscribe({
         next:(response)=>{
-          console.log('Success:', response);
+          // console.log('Success:', response);
           this.isSubmitting = false;
           this.submitSuccess = true;
           this.enquiryForm.reset();
+          
           const successDiv = document.querySelector('.success-message');
           const container=document.querySelector('.popup')
           if (successDiv instanceof HTMLElement && container instanceof HTMLElement) {
