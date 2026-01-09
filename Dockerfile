@@ -1,4 +1,4 @@
-  # Stage 1: Build the Angular application
+# Stage 1: Build the Angular application
 FROM node:alpine AS build
 
 WORKDIR /app
@@ -7,20 +7,27 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps
 
-# Copy source code and build for production
+# Copy source code
 COPY . .
-RUN npm run build
+
+# Build for static deployment (no SSR)
+RUN npm run build -- --configuration=static
+
+# List build output to verify
+RUN echo "Build output:" && ls -la dist/sta-web/
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Copy built Angular app from build stage
+# Remove default nginx files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy built Angular app (static build outputs to dist/sta-web/browser)
 COPY --from=build /app/dist/sta-web/browser /usr/share/nginx/html
 
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Cloud Run expects port 8080
 EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
