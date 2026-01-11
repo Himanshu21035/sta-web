@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
-
+import { HasRoleDirective } from '../services/has-role.directive';
 interface DashboardStats {
   total: number;
   certified: number;
@@ -15,7 +15,7 @@ interface DashboardStats {
 }
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule ],
+  imports: [CommonModule, HasRoleDirective ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

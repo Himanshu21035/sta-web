@@ -9,9 +9,10 @@ import { CommonModule } from '@angular/common';
 import { exportCSV } from '../services/csvExport';
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
+import { HasRoleDirective } from '../services/has-role.directive';
 @Component({
   selector: 'app-students',
-  imports: [ɵInternalFormsSharedModule, CommonModule, ReactiveFormsModule],
+  imports: [ɵInternalFormsSharedModule, CommonModule, ReactiveFormsModule,HasRoleDirective],
   templateUrl: './students.html',
   styleUrl: './students.css',
 })

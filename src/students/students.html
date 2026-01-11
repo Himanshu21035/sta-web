@@ -437,7 +437,7 @@
           <label>Batch Period</label>
           <p>{{ selectedStudent()!.batchStart }} - {{ selectedStudent()!.batchEnd }}</p>
         </div>
-        <div class="detailItem">
+        <div class="detailItem" *appHasRole="['Admin']">
           <label>Course Fees</label>
           <p>₹{{ selectedStudent()!.Fees }}</p>
         </div>

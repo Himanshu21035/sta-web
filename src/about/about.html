@@ -1,1 +1,268 @@
-<p>about works!</p>
+<div class="about-container">
+  <!-- Hero Section -->
+  <section class="hero-section" [@fadeInUp]>
+    <div class="hero-content">
+      <h1 class="main-title">Welcome to Saraswati Tally Academy</h1>
+      <p class="subtitle">Pioneering Professional & Affordable Technical Education in Faridabad</p>
+      <div class="hero-underline"></div>
+      <p class="hero-tagline">Sector 37 | Sector 91 | Sehatpur | Agwanpur | Sindhu Farm</p>
+    </div>
+  </section>
+
+  <!-- Origin Story Section -->
+  <section class="origin-section">
+    <div class="container" [@fadeInUp]>
+      <div class="origin-content">
+        <h2 class="section-title">Our Story: Bridging the Education Gap</h2>
+        <div class="origin-grid">
+          <div class="origin-text">
+            <div class="quote-mark">"</div>
+            <p class="lead-text">In 2022, we recognized a critical gap in our community—talented students and aspiring professionals in Faridabad's emerging sectors had limited access to quality, affordable technical education. Quality institutes were either too expensive or too far away.</p>
+            <p>Founded with a vision to democratize professional education, Saraswati Tally Academy emerged as the first comprehensive computer training institute serving Sector 37, Sector 91, Sehatpur, Agwanpur, and Sindhu Farm areas. We set out with a simple yet powerful mission: to provide world-class technical education at affordable prices, right in the heart of our community.</p>
+            <p>Today, we stand proud as <strong>pioneers of professional computer education</strong> in this region, having transformed over 1,200 lives and continuing to be the trusted choice for students who refuse to compromise on quality or drain their savings.</p>
+          </div>
+          <div class="origin-stats-box">
+            <div class="stat-item">
+              <i class="material-icons">emoji_events</i>
+              <div class="stat-content">
+                <h3>First Movers</h3>
+                <p>Pioneering professional IT education in the Faridabad belt since 2015</p>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="material-icons">account_balance</i>
+              <div class="stat-content">
+                <h3>Community Focused</h3>
+                <p>Serving 5+ localities with accessible, affordable training</p>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="material-icons">workspace_premium</i>
+              <div class="stat-content">
+                <h3>Excellence Promise</h3>
+                <p>Premium quality education without premium pricing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Statement -->
+  <section class="mission-section">
+    <div class="container" [@fadeInUp]>
+      <div class="mission-card">
+        <div class="icon-wrapper">
+          <i class="material-icons">school</i>
+        </div>
+        <h2>Our Mission</h2>
+        <p>At Saraswati Tally Academy, we are committed to empowering students and professionals with practical expertise across Tally ERP, accounting software, programming languages, web development, AI/ML, graphic design, and digital marketing. Our academy offers hands-on training, industry-relevant curriculum, and real-world practice that prepares you for successful careers in technology, accounting, and digital fields. Whether you're a beginner or seeking advanced certification, we help you build confidence, competence, and competitive edge in today's job market.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let stat of stats; let i = index" [@staggerAnimation]="i">
+          <div class="stat-number">{{ stat.number }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Courses Section -->
+  <section class="courses-section">
+    <div class="container">
+      <h2 class="section-title" [@fadeInUp]>Comprehensive Course Portfolio</h2>
+      <p class="section-description">From fundamentals to future-ready skills — structured programs for every career path</p>
+      
+      <!-- Accounting & Finance -->
+      <div class="course-category">
+        <h3 class="category-title">
+          <i class="material-icons">account_balance_wallet</i>
+          Accounting & Finance
+        </h3>
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of accountingCourses; let i = index" 
+               [@cardAnimation]="i"
+               (mouseenter)="onHoverCard(i)" 
+               (mouseleave)="onLeaveCard(i)"
+               [class.hovered]="hoveredCard === i">
+            <div class="course-icon">
+              <i class="material-icons">{{ course.icon }}</i>
+            </div>
+            <h4>{{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Programming & Development -->
+      <div class="course-category">
+        <h3 class="category-title">
+          <i class="material-icons">code</i>
+          Programming & Software Development
+        </h3>
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of programmingCourses; let i = index" 
+               [@cardAnimation]="i"
+               (mouseenter)="onHoverCard(i + 100)" 
+               (mouseleave)="onLeaveCard(i + 100)"
+               [class.hovered]="hoveredCard === (i + 100)">
+            <div class="course-icon">
+              <i class="material-icons">{{ course.icon }}</i>
+            </div>
+            <h4>{{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web & Digital -->
+      <div class="course-category">
+        <h3 class="category-title">
+          <i class="material-icons">public</i>
+          Web Development & Digital Marketing
+        </h3>
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of webDigitalCourses; let i = index" 
+               [@cardAnimation]="i"
+               (mouseenter)="onHoverCard(i + 200)" 
+               (mouseleave)="onLeaveCard(i + 200)"
+               [class.hovered]="hoveredCard === (i + 200)">
+            <div class="course-icon">
+              <i class="material-icons">{{ course.icon }}</i>
+            </div>
+            <h4>{{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design & Office -->
+      <div class="course-category">
+        <h3 class="category-title">
+          <i class="material-icons">design_services</i>
+          Design & Office Applications
+        </h3>
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of designOfficeCourses; let i = index" 
+               [@cardAnimation]="i"
+               (mouseenter)="onHoverCard(i + 300)" 
+               (mouseleave)="onLeaveCard(i + 300)"
+               [class.hovered]="hoveredCard === (i + 300)">
+            <div class="course-icon">
+              <i class="material-icons">{{ course.icon }}</i>
+            </div>
+            <h4>{{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foundation Courses -->
+      <div class="course-category">
+        <h3 class="category-title">
+          <i class="material-icons">foundation</i>
+          Foundation & Diploma Programs
+        </h3>
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of foundationCourses; let i = index" 
+               [@cardAnimation]="i"
+               (mouseenter)="onHoverCard(i + 400)" 
+               (mouseleave)="onLeaveCard(i + 400)"
+               [class.hovered]="hoveredCard === (i + 400)">
+            <div class="course-icon">
+              <i class="material-icons">{{ course.icon }}</i>
+            </div>
+            <h4>{{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title" [@fadeInUp]>Why Choose Saraswati Tally Academy?</h2>
+      <p class="section-description">Unique features that set us apart as education pioneers</p>
+      
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features; let i = index" [@slideInAnimation]="i">
+          <div class="feature-header">
+            <div class="feature-icon" [style.background]="feature.color">
+              <i class="material-icons">{{ feature.icon }}</i>
+            </div>
+            <h3>{{ feature.title }}</h3>
+          </div>
+          <ul class="feature-list">
+            <li *ngFor="let point of feature.points">
+              <i class="material-icons check-icon">check_circle</i>
+              <span>{{ point }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Post-Completion Support Section -->
+  <section class="support-section">
+    <div class="container">
+      <h2 class="section-title" [@fadeInUp]>Lifelong Learning Partnership</h2>
+      <p class="section-description">Your success journey doesn't end with course completion—it begins there</p>
+      
+      <div class="support-grid">
+        <div class="support-card" *ngFor="let support of postCompletionSupport; let i = index" [@scaleAnimation]="i">
+          <div class="support-icon-wrapper">
+            <i class="material-icons">{{ support.icon }}</i>
+          </div>
+          <h3>{{ support.title }}</h3>
+          <p>{{ support.description }}</p>
+          <ul class="support-features">
+            <li *ngFor="let feature of support.features">
+              <i class="material-icons">arrow_forward</i>
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="section-title" [@fadeInUp]>Our Core Values</h2>
+      <div class="values-grid">
+        <div class="value-card" *ngFor="let value of values; let i = index" [@scaleAnimation]="i">
+          <div class="value-icon-circle">
+            <i class="material-icons">{{ value.icon }}</i>
+          </div>
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" [@fadeInUp]>
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Career?</h2>
+        <p>Join thousands of successful students who have transformed their careers with affordable, world-class training</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary">Enroll Now</button>
+          <button class="btn btn-secondary">Download Brochure</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

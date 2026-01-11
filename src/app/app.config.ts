@@ -5,16 +5,16 @@ import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authInterceptor } from '../auth.interceptor';
-import { withInterceptors } from '@angular/common/http';
+import { httpCredentialsInterceptor } from '../http-credentials.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { withInterceptors } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient( withInterceptors([authInterceptor])), provideHttpClient(withJsonpSupport()),
+    provideHttpClient(  withInterceptors([httpCredentialsInterceptor])), provideHttpClient(withJsonpSupport()),
     provideAnimationsAsync(),
-    
+   
   ]
 };

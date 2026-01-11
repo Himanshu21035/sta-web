@@ -6,14 +6,13 @@ import { tap, catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 
 interface LoginCredentials {
-  email: string;
-  password: string;
+  userName: string;
+  Password: string;
 }
 
 interface LoginResponse {
   success: boolean;
   message: string;
-  token: string;
   user: {
     id: string;
     name: string;
@@ -26,7 +25,6 @@ interface User {
   name: string;
   role?: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -48,10 +46,10 @@ export class AuthService {
    * Restore auth state from storage
    */
   private restoreAuth(): void {
-    const token = localStorage.getItem('token');
-    const userStr = localStorage.getItem('user');
+    // const token = localStorage.getItem('token');
+    const userStr = sessionStorage.getItem('user');
 
-    if (token && userStr) {
+    if (userStr) {
       try {
         const user: User = JSON.parse(userStr);
         this._user$.next(user);
@@ -68,11 +66,12 @@ export class AuthService {
   login(credentials: LoginCredentials): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/auth/login`,
-      credentials
+      credentials,
+      { withCredentials: true }
     ).pipe(
       tap(res => {
         if (res.success) {
-          this.setAuth(res.token, res.user);
+          this.setAuth(res.user);
         }
       })
     );
@@ -81,30 +80,45 @@ export class AuthService {
   /**
    * Logout
    */
-  logout(): void {
-    this.clearAuth();
-    if (this.router.url !== '/login') {
-    this.router.navigate(['/login']); // ✅ only navigate if not already on login
-    }
+   logout(): void {
+    this.http.post(
+      `${this.apiUrl}/auth/logout`,
+      {},
+      { withCredentials: true }
+    ).subscribe({
+      next: () => {
+        this.clearAuth();
+        if (this.router.url !== '/login') {
+          this.router.navigate(['/login']);
+        }
+      },
+      error: () => {
+        // Clear local state even if server request fails
+        this.clearAuth();
+        if (this.router.url !== '/login') {
+          this.router.navigate(['/login']);
+        }
+      }
+    });
   }
+
 
   /**
    * Store auth data
    */
-  private setAuth(token: string, user: User): void {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+ private setAuth(user: User): void {
+    sessionStorage.setItem('user', JSON.stringify(user));
 
     this._user$.next(user);
     this._isAuthenticated$.next(true);
   }
 
+
   /**
    * Clear auth data
    */
   private clearAuth(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
 
     this._user$.next(null);
     this._isAuthenticated$.next(false);

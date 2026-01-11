@@ -6,16 +6,23 @@ import { Router, CanActivateFn, UrlTree } from '@angular/router';
  * Utility: Check authentication from persistent storage
  */
 function isAuthenticated(): boolean {
-  return !!localStorage.getItem('token');
+  return !!sessionStorage.getItem('user');
 }
 
 /**
  * Utility: Get user role
  */
 function getUserRole(): string | null {
-  return localStorage.getItem('role');
+  const userStr = sessionStorage.getItem('user');
+  if (!userStr) return null;
+  
+  try {
+    const user = JSON.parse(userStr);
+    return user.role ?? null;
+  } catch {
+    return null;
+  }
 }
-
 /**
  * Auth Guard
  * - Allows access only if user is authenticated
@@ -34,10 +41,7 @@ export const authGuard: CanActivateFn = (route, state): boolean | UrlTree => {
     return true;
   }
 
-  // Save redirect URL for post-login navigation
-  localStorage.setItem('redirectUrl', state.url);
-
-  // IMPORTANT: return UrlTree instead of navigate()
+   sessionStorage.setItem('redirectUrl', state.url);
   return router.createUrlTree(['/login']);
 };
 
@@ -50,8 +54,6 @@ export const loginGuard: CanActivateFn = (): boolean | UrlTree => {
 
   const auth = isAuthenticated();
 
-//   console.log('🔓 loginGuard');
-//   console.log('Authenticated:', auth);
 
   if (!auth) {
     return true;

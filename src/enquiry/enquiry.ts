@@ -18,12 +18,14 @@ export class Enquiry {
   submitSuccess = false;
   submitError = false;
   enquiryForm: FormGroup;
+  phoneRegex = /^[6-9]\d{9}$/;
+  emailRegex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
   courses:string[]=['Tally ERP 9','Graphic Designing','Web Development','Digital Marketing','Basic Computer','Advanced Excel','ADCA','DCA','C/C++','Python Programming','AutoCAD'];
   constructor(private fb:FormBuilder, private enquiryService:EnquiryService){
     this.enquiryForm=this.fb.group({
       name:['', Validators.required],
-      mob:['',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
-      email:['',[Validators.required,Validators.email]],
+      mob:['',[Validators.required,Validators.pattern(this.phoneRegex)]],
+      email:['',[Validators.required,Validators.email,Validators.pattern(this.emailRegex)]],
       address:['',Validators.required],
       courses:this.fb.control<string[]>([]),
       joiningDate:['',Validators.required]
